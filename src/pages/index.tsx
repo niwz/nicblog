@@ -80,14 +80,10 @@ export default function Home({ posts = [] }: HomeProps) {
           </h2>
           <div className="prose-content">
             <p>
-              Welcome to this minimalist blog. This space is dedicated to sharing thoughts, 
-              essays, and observations on various topics. The design is inspired by clean, 
-              readable layouts that prioritize content over decoration.
+              This is my blog. More to come soon.
             </p>
             <p>
-              Navigate using the sidebar to explore different sections, or browse recent 
-              posts above. Each post includes reading time estimates and topical tags 
-              to help you find what interests you most.
+              Vibe-coded with Cursor.
             </p>
           </div>
         </section>
