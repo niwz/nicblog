@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
