@@ -39,7 +39,7 @@ export default function Layout({ children, title, showSidebar = true }: LayoutPr
             <div className="p-8">
               <Link href="/" className="block mb-8">
                 <h1 className="text-xl font-medium text-foreground hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                  Nic's Blog
+                  Nic&#39;s Blog
                 </h1>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                   Essays & observations
