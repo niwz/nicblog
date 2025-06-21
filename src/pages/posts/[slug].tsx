@@ -5,9 +5,12 @@ import Layout from '@/components/Layout';
 import BlogPost from '@/components/BlogPost';
 import { getPostBySlug, getAllPostSlugs, BlogPost as BlogPostType } from '@/lib/blog';
 import { useState } from 'react';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 interface PostProps {
-  post: (BlogPostType & { password?: string }) | null;
+  post: (BlogPostType & { password?: string | null }) | null;
 }
 
 export default function Post({ post }: PostProps) {
@@ -116,12 +119,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const post = await getPostBySlug(slug);
 
     // Pass password field if present
-    let password: string | undefined = undefined;
+    let password: string | null = null;
     if (post) {
-      const filePath = require('path').join(process.cwd(), 'content/posts', `${slug}.md`);
-      const fs = require('fs');
+      const filePath = path.join(process.cwd(), 'content/posts', `${slug}.md`);
       if (fs.existsSync(filePath)) {
-        const matter = require('gray-matter');
         const { data } = matter(fs.readFileSync(filePath, 'utf8'));
         if (data.password) password = data.password;
       }
@@ -129,7 +130,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return {
       props: {
-        post: post ? { ...post, password: password ?? null } : null,
+        post: post ? { ...post, password } : null,
       },
     };
   } catch (error) {
