@@ -2,7 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import html from 'remark-html';
+import remarkMath from 'remark-math';
+import remarkRehype from 'remark-rehype';
+import rehypeKatex from 'rehype-katex';
+import rehypeStringify from 'rehype-stringify';
 
 const postsDirectory = path.join(process.cwd(), 'content/posts');
 
@@ -74,7 +77,10 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   const { data, content } = matter(fileContents);
 
   const processedContent = await remark()
-    .use(html)
+    .use(remarkMath)
+    .use(remarkRehype)
+    .use(rehypeKatex)
+    .use(rehypeStringify)
     .process(content);
 
   return {
