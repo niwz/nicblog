@@ -35,6 +35,12 @@ function ensurePostsDirectory() {
   }
 }
 
+function calculateReadingTime(text: string): string {
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return minutes.toString();
+}
+
 export function getAllPosts(): BlogPostMeta[] {
   ensurePostsDirectory();
   
@@ -49,14 +55,15 @@ export function getAllPosts(): BlogPostMeta[] {
       const slug = fileName.replace(/\.md$/, '');
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const { data } = matter(fileContents);
+      const { data, content } = matter(fileContents);
+      const readingTime = data.readingTime || calculateReadingTime(content);
 
       return {
         slug,
         title: data.title || 'Untitled',
         date: data.date || new Date().toISOString(),
         excerpt: data.excerpt || '',
-        readingTime: data.readingTime || '',
+        readingTime,
         tags: data.tags || [],
       };
     });
@@ -75,6 +82,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
+  const readingTime = data.readingTime || calculateReadingTime(content);
 
   const processedContent = await remark()
     .use(remarkMath)
@@ -89,7 +97,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     date: data.date || new Date().toISOString(),
     excerpt: data.excerpt || '',
     content: processedContent.toString(),
-    readingTime: data.readingTime || '',
+    readingTime,
     tags: data.tags || [],
   };
 }
