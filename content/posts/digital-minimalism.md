@@ -4,6 +4,7 @@ date: "2024-01-10"
 excerpt: "Exploring the philosophy of digital minimalism and its practical applications in our hyper-connected world."
 readingTime: "4"
 tags: ["technology", "minimalism", "productivity"]
+password: "hiya"
 ---
 
 # Digital Minimalism
