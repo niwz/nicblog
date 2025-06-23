@@ -4,6 +4,7 @@ date: "2024-06-14"
 excerpt: "An exploration of factor-based models, from the elegant math of risk premiums to the philosophical debate about what truly drives market returns."
 readingTime: "15"
 tags: ["finance", "investing", "quantitative", "philosophy"]
+password: "hiya"
 ---
 
 ### Latent Dimensions: Rethinking the Philosophy of Factor Models
